@@ -18,7 +18,8 @@ namespace PSPDFKitDemoXamarin.iOS
 			base.ViewDidLoad ();
 			// create the custom toolbar and add it on top of the HUDView.
 			this.verticalToolbar = new KSVerticalAnnotationToolbar (this);
-			this.verticalToolbar.Frame = new RectangleF(this.View.Bounds.Size.Width - 44f, (this.View.Bounds.Size.Height - 44f) / 2f, 44f, 44f * 2f);
+			this.verticalToolbar.Frame = new RectangleF(this.View.Bounds.Size.Width - 44f, (this.View.Bounds.Size.Height - 44f) / 2f, 1f, 1f);
+			this.verticalToolbar.SizeToFit ();
 			this.verticalToolbar.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin;
 			this.HUDView.AddSubview(this.verticalToolbar);
 		}
@@ -37,6 +38,7 @@ namespace PSPDFKitDemoXamarin.iOS
 		{
 			base.setViewModeAnimated (viewMode, animated);
 
+			// Hide vertical toolbar when switching to thumb view.
 			UIView.Animate (0.25f, 0f, UIViewAnimationOptions.AllowUserInteraction, () => { this.verticalToolbar.Alpha = viewMode == PSPDFViewMode.Thumbnails ? 0f : 1f; }, null);
 		}
 	}
