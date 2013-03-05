@@ -68,7 +68,7 @@ namespace PSPDFKitDemoXamarin.iOS
 						this.NavigationController.PushViewController(controller, true);
 					}),
 
-					// Demonstrates capturing bookmark set/remove.
+					// Demonstrates custom annotation provider.
 					new StringElement ("Custom Annotation Provider", () =>
 					{
 						var doc = new PSPDFDocument(hackerMagURL);
