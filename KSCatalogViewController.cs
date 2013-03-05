@@ -7,6 +7,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using AlexTouch.PSPDFKit;
+using MonoTouch.ObjCRuntime;
 
 namespace PSPDFKitDemoXamarin.iOS
 {
@@ -29,10 +30,72 @@ namespace PSPDFKitDemoXamarin.iOS
 			{
 				new Section ("Subclassing")
 				{
+					// Demonstrates always visible vertical toolbar.
 					new StringElement ("Vertical always-visible annotation bar", () =>
 					{
 						var doc = new PSPDFDocument(hackerMagURL);
 						var controller = new KSExampleAnnotationViewController(doc);
+						this.NavigationController.PushViewController(controller, true);
+					}),
+
+					// Tests potential binding issue when subclassing PSPDFViewController
+					new StringElement ("PSPDFViewController with NULL document", () =>
+					{
+						var doc = new PSPDFDocument(hackerMagURL);
+						var controller = new KSNoDocumentPDFViewController();
+						controller.Document = doc;
+						this.NavigationController.PushViewController(controller, true);
+					}),
+
+					// Demonstrates capturing bookmark set/remove.
+					new StringElement ("Capture bookmarks", () =>
+					{
+						var doc = new PSPDFDocument(hackerMagURL);
+
+						// Create an entry for overriding the default bookmark parser.
+						var classDic = new NSMutableDictionary();
+						classDic.LowlevelSetObject( new Class(typeof(KSBookmarkParser)).Handle, new Class(typeof(PSPDFBookmarkParser)).Handle);
+						doc.OverrideClassNames = classDic;
+
+						var controller = new PSPDFViewController(doc);
+						controller.RightBarButtonItems = new PSPDFBarButtonItem[]
+						{
+							controller.BookmarkButtonItem,
+							controller.SearchButtonItem,
+							controller.OutlineButtonItem,
+							controller.ViewModeButtonItem
+						};
+						this.NavigationController.PushViewController(controller, true);
+					}),
+
+					// Demonstrates capturing bookmark set/remove.
+					new StringElement ("Custom Annotation Provider", () =>
+					{
+						var doc = new PSPDFDocument(hackerMagURL);
+						doc.SetDidCreateDocumentProviderBlock(delegate(PSPDFDocumentProvider documentProvider)
+						{
+							documentProvider.AnnotationParser.AnnotationProviders = new NSObject[]
+							{
+								new KSCustomAnnotationProvider(),
+								documentProvider.AnnotationParser.FileAnnotationProvider
+							};
+						});
+					
+						var controller = new PSPDFViewController(doc);
+						this.NavigationController.PushViewController(controller, true);
+					}),
+
+					// Remove annotation toolbar item by setting EditableAnnotationTypes
+					new StringElement ("Remove Ink from the annotation toolbar", () =>
+					                   {
+						var doc = new PSPDFDocument(hackerMagURL);
+						var controller = new PSPDFViewController(doc);
+						// TODO: We need NSMutableOrderedSet bound and NSOrderedSet!
+						/*
+						NSMutableOrderedSet annotTypes = UIDocument.EditableAnnotationTypes;
+						annotTypes.RemoveObject(PSPDFAnnotationTypeStringInk);
+						controller.AnnotationButtonItem.AnnotationToolbar.EditableAnnotationTypes = annotTypes;
+						*/
 						this.NavigationController.PushViewController(controller, true);
 					})
 				}

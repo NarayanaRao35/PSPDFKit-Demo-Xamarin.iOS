@@ -96,6 +96,9 @@
     <Compile Include="KSCatalogViewController.cs" />
     <Compile Include="Subclassing\KSExampleAnnotationViewController.cs" />
     <Compile Include="Subclassing\KSVerticalAnnotationToolbar.cs" />
+    <Compile Include="Subclassing\KSNoDocumentPDFViewController.cs" />
+    <Compile Include="Subclassing\KSBookmarkParser.cs" />
+    <Compile Include="Subclassing\KSCustomAnnotationProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
