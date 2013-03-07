@@ -47,6 +47,7 @@ namespace PSPDFKitDemoXamarin.iOS
 					{
 						var doc = new PSPDFDocument(hackerMagURL);
 						var controller = new KSExampleAnnotationViewController(doc);
+
 						this.NavigationController.PushViewController(controller, true);
 					}),
 

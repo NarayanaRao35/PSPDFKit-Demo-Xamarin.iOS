@@ -82,7 +82,11 @@
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="AlexTouch.PSPDFKit">
+<<<<<<< HEAD
       <HintPath>..\KS_PSPDFKitBindings\AlexTouch.PSPDFKit\bin\Debug\AlexTouch.PSPDFKit.dll</HintPath>
+=======
+      <HintPath>..\KS_PSPDFKit_Bindings\AlexTouch.PSPDFKit\bin\Release\AlexTouch.PSPDFKit.dll</HintPath>
+>>>>>>> just empty lines
     </Reference>
   </ItemGroup>
   <ItemGroup>
