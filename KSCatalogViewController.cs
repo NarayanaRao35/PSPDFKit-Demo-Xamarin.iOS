@@ -17,6 +17,7 @@ namespace PSPDFKitDemoXamarin.iOS
 		const string PaperExampleFileName = "amazon-dynamo-sosp2007.pdf";
 		const string PSPDFCatalog = "PSPDFKit.pdf";
 		const string HackerMagazineExample = "hackermonthly12.pdf";
+		const string AnnotTestExample = "Annotation Test.pdf";
 
 		public bool clearCacheNeeded;
 
@@ -24,6 +25,7 @@ namespace PSPDFKitDemoXamarin.iOS
 		{
 			NSUrl samplesURL = NSBundle.MainBundle.ResourceUrl.Append ("Samples", true);
 			NSUrl hackerMagURL = samplesURL.Append(HackerMagazineExample, false);
+			NSUrl annotTestURL = samplesURL.Append(AnnotTestExample, false);
 
 
 			this.Root = new RootElement ("KSCatalogViewController")
@@ -98,9 +100,44 @@ namespace PSPDFKitDemoXamarin.iOS
 						this.NavigationController.PushViewController(controller, true);
 					}),
 
+					// Subclasses PDPFFileAnnotationProvider and injects additional annotations. 
+					// This example demonstrates:
+					// * Make all built in annotations (those embedded in the PDF) immutable.
+					// * All annotations added by the user can be modified.
+					// * Workaround for PSPDFKit bug where the text of a non-editable annotation can still be changed.
+					// * Immediate callback if an annotation has been changed.
+					new StringElement ("Subclass PSPDFFileAnnotationProvider", () =>
+					{
+						//var doc = new PSPDFDocument(hackerMagURL);
+						var doc = new PSPDFDocument(annotTestURL);
+
+						// Create an entry for overriding the file annotation provider.
+						var classDic = new NSMutableDictionary();
+						classDic.LowlevelSetObject( new Class(typeof(KSFileAnnotationProvider)).Handle, new Class(typeof(PSPDFFileAnnotationProvider)).Handle);
+						classDic.LowlevelSetObject( new Class(typeof(KSInkAnnotation)).Handle, new Class(typeof(PSPDFInkAnnotation)).Handle);
+						classDic.LowlevelSetObject( new Class(typeof(KSNoteAnnotation)).Handle, new Class(typeof(PSPDFNoteAnnotation)).Handle);
+						doc.OverrideClassNames = classDic;
+
+						var controller = new PSPDFViewController(doc);
+						var barButtons = new List<PSPDFBarButtonItem>(controller.RightBarButtonItems);
+						barButtons.Add(controller.AnnotationButtonItem);
+						controller.RightBarButtonItems = barButtons.ToArray();
+						controller.SetPageAnimated(2, false);
+
+						controller.PageMode = PSPDFPageMode.Automatic;
+						controller.PageTransition = PSPDFPageTransition.ScrollContinuous;
+						controller.ScrollDirection = PSPDFScrollDirection.Horizontal;
+
+						classDic = new NSMutableDictionary();
+						classDic.LowlevelSetObject(new Class(typeof(KSNoteAnnotationController)).Handle, new Class(typeof(PSPDFNoteAnnotationController)).Handle);
+						controller.OverrideClassNames = classDic;
+
+						this.NavigationController.PushViewController(controller, true);
+					}),
+
 					// Remove annotation toolbar item by setting EditableAnnotationTypes
 					new StringElement ("Remove Ink from the annotation toolbar", () =>
-					                   {
+					{
 						var doc = new PSPDFDocument(hackerMagURL);
 						var controller = new PSPDFViewController(doc);
 						// TODO: We need NSMutableOrderedSet bound and NSOrderedSet!

@@ -82,11 +82,7 @@
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="AlexTouch.PSPDFKit">
-<<<<<<< HEAD
-      <HintPath>..\KS_PSPDFKitBindings\AlexTouch.PSPDFKit\bin\Debug\AlexTouch.PSPDFKit.dll</HintPath>
-=======
-      <HintPath>..\KS_PSPDFKit_Bindings\AlexTouch.PSPDFKit\bin\Release\AlexTouch.PSPDFKit.dll</HintPath>
->>>>>>> just empty lines
+      <HintPath>..\KS_PSPDFKit_Bindings\AlexTouch.PSPDFKit\bin\Debug\AlexTouch.PSPDFKit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +100,11 @@
     <Compile Include="Subclassing\KSBookmarkParser.cs" />
     <Compile Include="Subclassing\KSCustomAnnotationProvider.cs" />
     <Compile Include="Kiosk\KSKioskViewController.cs" />
+    <Compile Include="Subclassing\KSFileAnnotationProvider.cs" />
+    <Compile Include="Subclassing\AnnotationTypes\KSInkAnnotation.cs" />
+    <Compile Include="Subclassing\AnnotationTypes\KSNoteAnnotation.cs" />
+    <Compile Include="Subclassing\AnnotationTypes\IKSAnnotation.cs" />
+    <Compile Include="Subclassing\AnnotationTypes\KSNoteAnnotationController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -181,5 +182,6 @@
   <ItemGroup>
     <Folder Include="Subclassing\" />
     <Folder Include="Kiosk\" />
+    <Folder Include="Subclassing\AnnotationTypes\" />
   </ItemGroup>
 </Project>
