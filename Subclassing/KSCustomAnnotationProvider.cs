@@ -1,6 +1,7 @@
 using System;
 using AlexTouch.PSPDFKit;
 using System.Drawing;
+using MonoTouch.Foundation;
 
 namespace PSPDFKitDemoXamarin.iOS
 {
@@ -32,6 +33,12 @@ namespace PSPDFKitDemoXamarin.iOS
 				return new PSPDFAnnotation[] { noteAnnotation };
 			}
 		}
+
+//		public override NSObject WeakProviderDelegate
+//		{
+//			get;
+//			set;
+//		}
 	}
 }
 

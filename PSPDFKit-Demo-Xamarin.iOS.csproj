@@ -82,7 +82,7 @@
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="AlexTouch.PSPDFKit">
-      <HintPath>..\KS_PSPDFKitBindings\AlexTouch.PSPDFKit\bin\Release\AlexTouch.PSPDFKit.dll</HintPath>
+      <HintPath>..\KS_PSPDFKitBindings\AlexTouch.PSPDFKit\bin\Debug\AlexTouch.PSPDFKit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +99,7 @@
     <Compile Include="Subclassing\KSNoDocumentPDFViewController.cs" />
     <Compile Include="Subclassing\KSBookmarkParser.cs" />
     <Compile Include="Subclassing\KSCustomAnnotationProvider.cs" />
+    <Compile Include="Kiosk\KSKioskViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -175,5 +176,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Subclassing\" />
+    <Folder Include="Kiosk\" />
   </ItemGroup>
 </Project>

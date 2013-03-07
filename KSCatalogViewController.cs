@@ -28,6 +28,18 @@ namespace PSPDFKitDemoXamarin.iOS
 
 			this.Root = new RootElement ("KSCatalogViewController")
 			{
+				new Section ("Full example apps", "Can be used as a template for your own apps.")
+				{
+					// Demonstrates always visible vertical toolbar.
+					new StringElement ("PSPDFViewController playground", () =>
+					{
+						var doc = new PSPDFDocument(hackerMagURL);
+						var controller = new KSKioskViewController(doc);
+						controller.StatusBarStyleSetting = PSPDFStatusBarStyleSetting.Default;
+						this.NavigationController.PushViewController(controller, true);
+					}),
+				},
+
 				new Section ("Subclassing")
 				{
 					// Demonstrates always visible vertical toolbar.
