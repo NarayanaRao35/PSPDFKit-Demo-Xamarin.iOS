@@ -60,7 +60,7 @@ namespace PSPDFKitDemoXamarin.iOS
 				// Add one additional note annotation on each page.
 				if (!this.pageAnnots.ContainsKey (page))
 				{
-					var addAnnot = new KSNoteAnnotation (false)
+					var addAnnot = new KSNoteAnnotation (true)
 					{
 						Page = page,
 						Contents = "Custom Annot on Page " + page,
