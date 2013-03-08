@@ -105,6 +105,7 @@
     <Compile Include="Subclassing\AnnotationTypes\KSNoteAnnotation.cs" />
     <Compile Include="Subclassing\AnnotationTypes\IKSAnnotation.cs" />
     <Compile Include="Subclassing\AnnotationTypes\KSNoteAnnotationController.cs" />
+    <Compile Include="Subclassing\KSPDFDocument.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
