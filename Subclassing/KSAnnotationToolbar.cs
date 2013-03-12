@@ -19,6 +19,16 @@ namespace PSPDFKitDemoXamarin.iOS
 		{
 		}
 
+		// Uncomment the following override to have a workaround for issue https://github.com/PSPDFKit/XamarinBindings/issues/7
+//		public override void HideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock)
+//		{
+//			PSPDFAnnotationToolbarCompletionDel del = delegate
+//			{
+//				this.RemoveFromSuperview();
+//			};
+//			base.HideToolbar (animated, del);
+//		}
+
 		public override void SetItems (UIBarButtonItem[] items, bool animated)
 		{
 			var customItems = new List<UIBarButtonItem> (items);
