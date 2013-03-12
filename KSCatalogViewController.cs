@@ -44,6 +44,23 @@ namespace PSPDFKitDemoXamarin.iOS
 
 				new Section ("Subclassing")
 				{
+					// Subclassing PSPDFAnnotationToolbar
+					new StringElement ("Subclass annotation toolbar and drawing toolbar", () =>
+					{
+						var doc = new PSPDFDocument(hackerMagURL);
+						var controller = new PSPDFViewController(doc);
+
+						var barButtons = new List<PSPDFBarButtonItem>(controller.RightBarButtonItems);
+						barButtons.Add(controller.AnnotationButtonItem);
+						controller.RightBarButtonItems = barButtons.ToArray();
+						
+						var classDic = new NSMutableDictionary();
+						classDic.LowlevelSetObject( new Class(typeof(KSAnnotationToolbar)).Handle, new Class(typeof(PSPDFAnnotationToolbar)).Handle);
+						controller.OverrideClassNames = classDic;
+						
+						this.NavigationController.PushViewController(controller, true);
+					}),
+
 					// Demonstrates always visible vertical toolbar.
 					new StringElement ("Vertical always-visible annotation bar", () =>
 					{

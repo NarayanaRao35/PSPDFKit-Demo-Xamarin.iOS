@@ -2,12 +2,14 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.6.1" />
   <MonoDevelop.Ide.Workbench ActiveDocument="KSCatalogViewController.cs">
     <Files>
-      <File FileName="KSCatalogViewController.cs" Line="7" Column="23" />
-      <File FileName="Subclassing/KSFileAnnotationProvider.cs" Line="30" Column="39" />
-      <File FileName="Subclassing/AnnotationTypes/KSInkAnnotation.cs" Line="10" Column="27" />
-      <File FileName="Subclassing/AnnotationTypes/KSNoteAnnotation.cs" Line="29" Column="8" />
-      <File FileName="Subclassing/AnnotationTypes/KSNoteAnnotationController.cs" Line="26" Column="6" />
-      <File FileName="Subclassing/AnnotationTypes/IKSAnnotation.cs" Line="10" Column="33" />
+      <File FileName="KSCatalogViewController.cs" Line="138" Column="33" />
+      <File FileName="Subclassing/KSFileAnnotationProvider.cs" Line="98" Column="4" />
+      <File FileName="Subclassing/AnnotationTypes/KSInkAnnotation.cs" Line="1" Column="1" />
+      <File FileName="Subclassing/AnnotationTypes/KSNoteAnnotation.cs" Line="1" Column="1" />
+      <File FileName="Subclassing/AnnotationTypes/KSNoteAnnotationController.cs" Line="62" Column="5" />
+      <File FileName="Subclassing/AnnotationTypes/IKSAnnotation.cs" Line="1" Column="1" />
+      <File FileName="Subclassing/KSPDFDocument.cs" Line="16" Column="73" />
+      <File FileName="Subclassing/KSExampleAnnotationViewController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -31,7 +33,9 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/rene/Documents/Develop/PSPDFKit/KS_PSPDFKit-Demo-Xamarin.iOS/Subclassing/AnnotationTypes/KSNoteAnnotationController.cs" line="18" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
