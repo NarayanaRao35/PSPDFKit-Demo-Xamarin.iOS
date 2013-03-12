@@ -30,14 +30,10 @@
 	<string>1.0.0</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Icon</string>
-		<string>Icon@2x</string>
-		<string>Icon-72</string>
-		<string>Icon-72@2x</string>
-		<string>Icon-Small</string>
-		<string>Icon-Small@2x</string>
-		<string>Icon-Small-50</string>
-		<string>Icon-Small-50@2x</string>
+		<string>ResourceData/Icon</string>
+		<string>ResourceData/Icon@2x</string>
+		<string>ResourceData/Icon-72</string>
+		<string>ResourceData/Icon-72@2x</string>
 	</array>
 </dict>
 </plist>

@@ -2,12 +2,13 @@ using System;
 using AlexTouch.PSPDFKit;
 using System.Drawing;
 using MonoTouch.UIKit;
+using System.Reflection;
 
 namespace PSPDFKitDemoXamarin.iOS
 {
 	public class KSExampleAnnotationViewController : PSPDFViewController
 	{
-		private KSVerticalAnnotationToolbar verticalToolbar;
+		private KSStapleMenu verticalToolbar;
 
 		public KSExampleAnnotationViewController (PSPDFDocument doc) : base(doc)
 		{
@@ -17,20 +18,129 @@ namespace PSPDFKitDemoXamarin.iOS
 		{
 			base.ViewDidLoad ();
 			// create the custom toolbar and add it on top of the HUDView.
-			this.verticalToolbar = new KSVerticalAnnotationToolbar (this);
-			this.verticalToolbar.Frame = new RectangleF(this.View.Bounds.Size.Width - 44f, (this.View.Bounds.Size.Height - 44f) / 2f, 1f, 1f);
-			this.verticalToolbar.SizeToFit ();
-			this.verticalToolbar.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleBottomMargin;
+			this.verticalToolbar = new KSStapleMenu(KSStapleMenu.STAPLEMENU_MODE.Right, 80f, new SizeF(80f, 80f));
+			this.verticalToolbar.BackgroundColor = UIColor.White;
+			
+			var inkItem = new KSStapleMenuItem("INK", UIImage.FromBundle("ResourceData/VerticalToolbar/annot-ink-0"), "Red", 12f, UIColor.Black);
+			inkItem.AddElement( UIImage.FromBundle("ResourceData/VerticalToolbar/annot-ink-1"), "Green", 12f, UIColor.Black);
+			inkItem.AddElement( UIImage.FromBundle("ResourceData/VerticalToolbar/annot-ink-2"), "Blue", 12f, UIColor.Black);
+
+			var noteItem = new KSStapleMenuItem("NOTE", UIImage.FromBundle("ResourceData/VerticalToolbar/annot-note"), "Note", 12f, UIColor.Black);
+
+			var freetextItem = new KSStapleMenuItem("FREETEXT", UIImage.FromBundle("ResourceData/VerticalToolbar/annot-freetext"), "Freetext", 12f, UIColor.Black);
+			
+			var hilightItem = new KSStapleMenuItem("HIGHLIGHT", UIImage.FromBundle("ResourceData/VerticalToolbar/annot-highlight-0"), "Red", 12f, UIColor.Black);
+			hilightItem.AddElement( UIImage.FromBundle("ResourceData/VerticalToolbar/annot-highlight-1"), "Green", 12f, UIColor.Black);
+			hilightItem.AddElement( UIImage.FromBundle("ResourceData/VerticalToolbar/annot-highlight-2"), "Blue", 12f, UIColor.Black);
+
+			this.verticalToolbar.AddItems(inkItem, noteItem, freetextItem, hilightItem);
+			this.verticalToolbar.ItemSelected += HandleAnnotationToolbarItemSelected;
 			this.HUDView.AddSubview(this.verticalToolbar);
+			
+			// Setup our own annotation toolbar delegate that hides the annotation toolbar.
+			this.AnnotationButtonItem.AnnotationToolbar.Delegate = new KSVerticalAnnotationToolbarDelegate();
 		}
 
-		public override void DidReceiveMemoryWarning ()
+		/// <summary>
+		/// Gets called if an element from the annotations toolbar has been selected.
+		/// </summary>
+		/// <param name="id">Identifier.</param>
+		/// <param name="index">Index.</param>
+		private void HandleAnnotationToolbarItemSelected (string id, int index)
 		{
-			base.DidReceiveMemoryWarning ();
-			if(!this.IsViewLoaded)
+			var toolbar = this.AnnotationButtonItem.AnnotationToolbar;
+
+			switch(id)
 			{
-				this.verticalToolbar.pdfController = null;
-				this.verticalToolbar = null;
+			case "NOTE":
+			{
+				if(toolbar.ToolbarMode == PSPDFAnnotationToolbarMode.Draw)
+				{
+					toolbar.DoneDrawingAnimated(true);
+				}
+				toolbar.NoteButtonPressed(this);
+			}
+			break;
+
+			case "FREETEXT":
+			{
+				if(toolbar.ToolbarMode == PSPDFAnnotationToolbarMode.Draw)
+				{
+					toolbar.DoneDrawingAnimated(true);
+				}
+				toolbar.FreeTextButtonPressed(this);
+			}
+			break;
+
+			case "HIGHLIGHT":
+			{
+				if(toolbar.ToolbarMode == PSPDFAnnotationToolbarMode.Draw)
+				{
+					toolbar.DoneDrawingAnimated(true);
+				}
+				switch(index)
+				{
+				case 0:
+					toolbar.DrawColor = UIColor.Red;
+					break;
+				case 1:
+					toolbar.DrawColor = UIColor.Green;
+					break;
+				case 2:
+					toolbar.DrawColor = UIColor.Blue;
+					break;
+				}
+				toolbar.HighlightButtonPressed(this);
+			}
+			break;
+
+			case "INK" :
+			{
+				switch(index)
+				{
+				case 0:
+					toolbar.DrawColor = UIColor.Red;
+					break;
+				case 1:
+					toolbar.DrawColor = UIColor.Green;
+					break;
+				case 2:
+					toolbar.DrawColor = UIColor.Blue;
+					break;
+				}
+				if (toolbar.ToolbarMode != PSPDFAnnotationToolbarMode.Draw)
+				{
+					this.HUDViewMode = PSPDFHUDViewMode.Always;
+					if (toolbar.Window == null)
+					{
+						// match style
+						toolbar.BarStyle = this.NavigationBarStyle;
+						toolbar.Translucent = this.TransparentHUD;
+						toolbar.TintColor = this.TintColor;
+
+						
+						// add the toolbar to the view hierarchy for color picking etc
+						if (this.NavigationController != null)
+						{
+							RectangleF targetRect = this.NavigationController.NavigationBar.Frame;
+							this.NavigationController.View.InsertSubviewAbove(toolbar, this.NavigationController.NavigationBar);
+							toolbar.ShowToolbarInRect(targetRect, true);
+						}
+						else
+						{
+							RectangleF contentRect = this.ContentRect();
+							var toolbarHeight = PSPDFKitGlobal.ToolbarHeightForOrientation(this.InterfaceOrientation);
+							RectangleF targetRect = new RectangleF(contentRect.X, contentRect.Y, this.View.Bounds.Size.Width, toolbarHeight);
+							this.View.AddSubview(toolbar);
+							toolbar.ShowToolbarInRect(targetRect, true);
+						}
+					}
+					
+					// call draw mode of the toolbar
+					toolbar.DrawButtonPressed(this);
+				}
+			}
+				break;
 			}
 		}
 

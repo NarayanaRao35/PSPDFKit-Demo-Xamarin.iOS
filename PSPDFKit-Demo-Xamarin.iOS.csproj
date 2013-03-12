@@ -23,6 +23,8 @@
     <ConsolePause>False</ConsolePause>
     <MtouchLink>None</MtouchLink>
     <MtouchDebug>True</MtouchDebug>
+    <MtouchI18n />
+    <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -95,7 +97,6 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="KSCatalogViewController.cs" />
     <Compile Include="Subclassing\KSExampleAnnotationViewController.cs" />
-    <Compile Include="Subclassing\KSVerticalAnnotationToolbar.cs" />
     <Compile Include="Subclassing\KSNoDocumentPDFViewController.cs" />
     <Compile Include="Subclassing\KSBookmarkParser.cs" />
     <Compile Include="Subclassing\KSCustomAnnotationProvider.cs" />
@@ -107,6 +108,10 @@
     <Compile Include="Subclassing\AnnotationTypes\KSNoteAnnotationController.cs" />
     <Compile Include="Subclassing\KSPDFDocument.cs" />
     <Compile Include="Subclassing\KSAnnotationToolbar.cs" />
+    <Compile Include="KSStapleMenu\KSMenuItemHostView.cs" />
+    <Compile Include="KSStapleMenu\KSStapleMenu.cs" />
+    <Compile Include="KSStapleMenu\KSStapleMenuItem.cs" />
+    <Compile Include="Subclassing\KSVerticalAnnotationToolbarDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -126,64 +131,77 @@
     <Content Include="Samples\two.pdf" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Book\book-left.jpg" />
-    <BundleResource Include="Resources\Book\book-right.jpg" />
-    <BundleResource Include="Resources\EmbeddedExample\balloon.png" />
-    <BundleResource Include="Resources\EmbeddedExample\balloon%402x.png" />
-    <BundleResource Include="Resources\EmbeddedExample\eye.png" />
-    <BundleResource Include="Resources\EmbeddedExample\eye%402x.png" />
-    <BundleResource Include="Resources\EmbeddedExample\eye-deactivate.png" />
-    <BundleResource Include="Resources\EmbeddedExample\eye-deactivate%402x.png" />
-    <BundleResource Include="Resources\EmbeddedExample\lock.png" />
-    <BundleResource Include="Resources\EmbeddedExample\lock%402x.png" />
-    <BundleResource Include="Resources\EmbeddedExample\medical.png" />
-    <BundleResource Include="Resources\EmbeddedExample\medical%402x.png" />
-    <BundleResource Include="Resources\EmbeddedExample\movie.png" />
-    <BundleResource Include="Resources\EmbeddedExample\movie%402x.png" />
-    <BundleResource Include="Resources\EmbeddedExample\shoebox.png" />
-    <BundleResource Include="Resources\EmbeddedExample\shoebox%402x.png" />
-    <BundleResource Include="Resources\EmbeddedExample\star.png" />
-    <BundleResource Include="Resources\Kiosk\de.lproj\Localizable.strings" />
-    <BundleResource Include="Resources\Kiosk\en.lproj\Localizable.strings" />
-    <BundleResource Include="Resources\Kiosk\fr.lproj\Localizable.strings" />
-    <BundleResource Include="Resources\Kiosk\badge.png" />
-    <BundleResource Include="Resources\Kiosk\badge%402x.png" />
-    <BundleResource Include="Resources\Kiosk\delete.png" />
-    <BundleResource Include="Resources\Kiosk\delete%402x.png" />
-    <BundleResource Include="Resources\Kiosk\Icon.png" />
-    <BundleResource Include="Resources\Kiosk\Icon-Newsstand.png" />
-    <BundleResource Include="Resources\Kiosk\linen_texture_dark.png" />
-    <BundleResource Include="Resources\Kiosk\linen_texture_dark%402x.png" />
-    <BundleResource Include="Resources\Kiosk\settings.png" />
-    <BundleResource Include="Resources\Kiosk\settings%402x.png" />
-    <BundleResource Include="Resources\Kiosk\settings_landscape.png" />
-    <BundleResource Include="Resources\Kiosk\settings_landscape%402x.png" />
-    <BundleResource Include="Resources\big_buck_bunny.mp4" />
-    <BundleResource Include="Resources\closebox.png" />
-    <BundleResource Include="Resources\closebox%402x.png" />
-    <BundleResource Include="Resources\Default-568h%402x.png" />
-    <BundleResource Include="Resources\exampleimage.jpg" />
-    <BundleResource Include="Resources\Icon.png" />
-    <BundleResource Include="Resources\Icon%402x.png" />
-    <BundleResource Include="Resources\Icon-72.png" />
-    <BundleResource Include="Resources\Icon-72%402x.png" />
-    <BundleResource Include="Resources\Icon-Small.png" />
-    <BundleResource Include="Resources\Icon-Small%402x.png" />
-    <BundleResource Include="Resources\Icon-Small-50.png" />
-    <BundleResource Include="Resources\Icon-Small-50%402x.png" />
-    <BundleResource Include="Resources\mas_audio_b41570.gif" />
-    <BundleResource Include="Resources\NightOwl.m4a" />
-    <BundleResource Include="Resources\RotationLocked.png" />
-    <BundleResource Include="Resources\RotationLocked%402x.png" />
-    <BundleResource Include="Resources\RotationUnlocked.png" />
-    <BundleResource Include="Resources\RotationUnlocked%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="Resources\EmbeddedExample\EmbeddedNib.xib" />
+    <BundleResource Include="ResourceData\big_buck_bunny.mp4" />
+    <BundleResource Include="ResourceData\closebox.png" />
+    <BundleResource Include="ResourceData\closebox%402x.png" />
+    <BundleResource Include="ResourceData\Default-568h%402x.png" />
+    <BundleResource Include="ResourceData\exampleimage.jpg" />
+    <BundleResource Include="ResourceData\Icon.png" />
+    <BundleResource Include="ResourceData\Icon%402x.png" />
+    <BundleResource Include="ResourceData\Icon-72.png" />
+    <BundleResource Include="ResourceData\Icon-72%402x.png" />
+    <BundleResource Include="ResourceData\Icon-Small.png" />
+    <BundleResource Include="ResourceData\Icon-Small%402x.png" />
+    <BundleResource Include="ResourceData\Icon-Small-50.png" />
+    <BundleResource Include="ResourceData\Icon-Small-50%402x.png" />
+    <BundleResource Include="ResourceData\mas_audio_b41570.gif" />
+    <BundleResource Include="ResourceData\NightOwl.m4a" />
+    <BundleResource Include="ResourceData\RotationLocked.png" />
+    <BundleResource Include="ResourceData\RotationLocked%402x.png" />
+    <BundleResource Include="ResourceData\RotationUnlocked.png" />
+    <BundleResource Include="ResourceData\RotationUnlocked%402x.png" />
+    <BundleResource Include="ResourceData\Book\book-left.jpg" />
+    <BundleResource Include="ResourceData\Book\book-right.jpg" />
+    <BundleResource Include="ResourceData\EmbeddedExample\balloon.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\balloon%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\eye.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\eye%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\eye-deactivate.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\eye-deactivate%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\lock.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\lock%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\medical.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\medical%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\movie.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\movie%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\shoebox.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\shoebox%402x.png" />
+    <BundleResource Include="ResourceData\EmbeddedExample\star.png" />
+    <BundleResource Include="ResourceData\Kiosk\de.lproj\Localizable.strings" />
+    <BundleResource Include="ResourceData\Kiosk\en.lproj\Localizable.strings" />
+    <BundleResource Include="ResourceData\Kiosk\fr.lproj\Localizable.strings" />
+    <BundleResource Include="ResourceData\Kiosk\badge.png" />
+    <BundleResource Include="ResourceData\Kiosk\badge%402x.png" />
+    <BundleResource Include="ResourceData\Kiosk\delete.png" />
+    <BundleResource Include="ResourceData\Kiosk\delete%402x.png" />
+    <BundleResource Include="ResourceData\Kiosk\Icon.png" />
+    <BundleResource Include="ResourceData\Kiosk\Icon-Newsstand.png" />
+    <BundleResource Include="ResourceData\Kiosk\linen_texture_dark.png" />
+    <BundleResource Include="ResourceData\Kiosk\linen_texture_dark%402x.png" />
+    <BundleResource Include="ResourceData\Kiosk\settings.png" />
+    <BundleResource Include="ResourceData\Kiosk\settings%402x.png" />
+    <BundleResource Include="ResourceData\Kiosk\settings_landscape.png" />
+    <BundleResource Include="ResourceData\Kiosk\settings_landscape%402x.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-comment.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-freetext.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-highlight-0.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-highlight-1.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-highlight-2.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-highlight-3.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-ink-0.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-ink-1.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-ink-2.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-ink-3.png" />
+    <BundleResource Include="ResourceData\VerticalToolbar\annot-note.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Subclassing\" />
     <Folder Include="Kiosk\" />
     <Folder Include="Subclassing\AnnotationTypes\" />
+    <Folder Include="ResourceData\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="ResourceData\EmbeddedExample\EmbeddedNib.xib" />
   </ItemGroup>
 </Project>
