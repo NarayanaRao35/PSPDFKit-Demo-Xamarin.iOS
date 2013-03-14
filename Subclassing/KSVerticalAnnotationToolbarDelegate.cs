@@ -14,10 +14,10 @@ namespace PSPDFKitDemoXamarin.iOS
 
 		public override void DidChangeMode (PSPDFAnnotationToolbar annotationToolbar, PSPDFAnnotationToolbarMode newMode)
 		{
-			if (newMode == PSPDFAnnotationToolbarMode.None &&  annotationToolbar.Window != null)
+			if (newMode == PSPDFAnnotationToolbarMode.None && annotationToolbar.Window != null)
 			{
 				// don't show all toolbar features, hide instead.
-				annotationToolbar.HideToolbar(true, () => 
+				annotationToolbar.HideToolbar(false, () => 
 				{
 					annotationToolbar.RemoveFromSuperview();
 				});

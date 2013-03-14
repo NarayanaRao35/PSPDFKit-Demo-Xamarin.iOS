@@ -19,16 +19,6 @@ namespace PSPDFKitDemoXamarin.iOS
 		{
 		}
 
-		// Uncomment the following override to have a workaround for issue https://github.com/PSPDFKit/XamarinBindings/issues/7
-//		public override void HideToolbar (bool animated, PSPDFAnnotationToolbarCompletionDel completionBlock)
-//		{
-//			PSPDFAnnotationToolbarCompletionDel del = delegate
-//			{
-//				this.RemoveFromSuperview();
-//			};
-//			base.HideToolbar (animated, del);
-//		}
-
 		public override void SetItems (UIBarButtonItem[] items, bool animated)
 		{
 			var customItems = new List<UIBarButtonItem> (items);
@@ -49,7 +39,8 @@ namespace PSPDFKitDemoXamarin.iOS
 
 			// Remove all buttons but the last one, which is the done button.
 			var doneBtn = this.Items [this.Items.Length - 1];
-			var demoBtn = new UIBarButtonItem ("Customized drawing toolbar", UIBarButtonItemStyle.Plain, null);
+			var demoBtn = new UIBarButtonItem ("Drawing toolbar", UIBarButtonItemStyle.Plain, null);
+
 			this.Items = new UIBarButtonItem[] { demoBtn, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), doneBtn };
 		}
 	}

@@ -3,6 +3,7 @@ using AlexTouch.PSPDFKit;
 using System.Drawing;
 using MonoTouch.UIKit;
 using System.Reflection;
+using MonoTouch.Foundation;
 
 namespace PSPDFKitDemoXamarin.iOS
 {
@@ -39,7 +40,59 @@ namespace PSPDFKitDemoXamarin.iOS
 			
 			// Setup our own annotation toolbar delegate that hides the annotation toolbar.
 			this.AnnotationButtonItem.AnnotationToolbar.Delegate = new KSVerticalAnnotationToolbarDelegate();
+
+			this.AnnotationButtonItem.AnnotationToolbar.HideAfterDrawingDidFinish = true;
 		}
+
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+			this.annotListeners = new NSObject[2];
+			this.annotListeners[0] = NSNotificationCenter.DefaultCenter.AddObserver ("PSPDFAnnotationAddedNotification", this.HandleAnnotationAdded);
+			this.annotListeners[1] = NSNotificationCenter.DefaultCenter.AddObserver ("PSPDFAnnotationChangedNotification", this.HandleAnnotationChanged);
+		}
+
+		private NSObject[] annotListeners;
+
+		public override void ViewWillDisappear (bool animated)
+		{
+			base.ViewWillDisappear (animated);
+			NSNotificationCenter.DefaultCenter.RemoveObservers (this.annotListeners);
+		}
+
+		private void HandleAnnotationAdded(NSNotification notif)
+		{
+			Console.WriteLine ("Annotation added");
+			if(notif.Object is PSPDFHighlightAnnotation)
+			{
+				((PSPDFHighlightAnnotation)notif.Object).Color = defaultHighlightColor;
+			}
+
+			// Show annotations toolbar.
+			UIView.Animate(0.3f, () => { this.verticalToolbar.Alpha = 1f; });
+
+			// Show scrobble bar.
+			this.SetScrobbleBarEnabled (true, true);
+
+			var toolbar = this.AnnotationButtonItem.AnnotationToolbar;
+			if(toolbar.ToolbarMode == PSPDFAnnotationToolbarMode.Draw)
+			{
+				toolbar.ToolbarMode = PSPDFAnnotationToolbarMode.None;
+				toolbar.FinishDrawingAnimated(false, true);
+				return;
+			}
+
+			this.HUDViewMode = PSPDFHUDViewMode.Automatic;
+			this.HUDVisible = true;
+			toolbar.ToolbarMode = PSPDFAnnotationToolbarMode.None;
+		}
+
+		private void HandleAnnotationChanged(NSObject notif)
+		{
+			Console.WriteLine ("Annotation changed");
+		}
+
+		private UIColor defaultHighlightColor = UIColor.Clear;
 
 		/// <summary>
 		/// Gets called if an element from the annotations toolbar has been selected.
@@ -48,46 +101,38 @@ namespace PSPDFKitDemoXamarin.iOS
 		/// <param name="index">Index.</param>
 		private void HandleAnnotationToolbarItemSelected (string id, int index)
 		{
+			this.SetScrobbleBarEnabled (false, true);
+			// Show annotations toolbar.
+			UIView.Animate(0.3f, () => { this.verticalToolbar.Alpha = 0f; });
+
 			var toolbar = this.AnnotationButtonItem.AnnotationToolbar;
 
 			switch(id)
 			{
 			case "NOTE":
 			{
-				if(toolbar.ToolbarMode == PSPDFAnnotationToolbarMode.Draw)
-				{
-					toolbar.DoneDrawingAnimated(true);
-				}
 				toolbar.NoteButtonPressed(this);
 			}
 			break;
 
 			case "FREETEXT":
 			{
-				if(toolbar.ToolbarMode == PSPDFAnnotationToolbarMode.Draw)
-				{
-					toolbar.DoneDrawingAnimated(true);
-				}
 				toolbar.FreeTextButtonPressed(this);
 			}
 			break;
 
 			case "HIGHLIGHT":
 			{
-				if(toolbar.ToolbarMode == PSPDFAnnotationToolbarMode.Draw)
-				{
-					toolbar.DoneDrawingAnimated(true);
-				}
 				switch(index)
 				{
 				case 0:
-					toolbar.DrawColor = UIColor.Red;
+					defaultHighlightColor = UIColor.Red;
 					break;
 				case 1:
-					toolbar.DrawColor = UIColor.Green;
+					defaultHighlightColor = UIColor.Green;
 					break;
 				case 2:
-					toolbar.DrawColor = UIColor.Blue;
+					defaultHighlightColor = UIColor.Blue;
 					break;
 				}
 				toolbar.HighlightButtonPressed(this);

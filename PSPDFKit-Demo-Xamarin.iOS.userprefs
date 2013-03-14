@@ -1,22 +1,6 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Info.plist">
-    <Files>
-      <File FileName="KSCatalogViewController.cs" Line="68" Column="50" />
-      <File FileName="Subclassing/KSFileAnnotationProvider.cs" Line="1" Column="1" />
-      <File FileName="Subclassing/AnnotationTypes/KSInkAnnotation.cs" Line="4" Column="11" />
-      <File FileName="Subclassing/AnnotationTypes/KSNoteAnnotation.cs" Line="1" Column="1" />
-      <File FileName="Subclassing/AnnotationTypes/KSNoteAnnotationController.cs" Line="1" Column="1" />
-      <File FileName="Subclassing/AnnotationTypes/IKSAnnotation.cs" Line="1" Column="1" />
-      <File FileName="Subclassing/KSPDFDocument.cs" Line="1" Column="1" />
-      <File FileName="Subclassing/KSExampleAnnotationViewController.cs" Line="23" Column="79" />
-      <File FileName="Subclassing/KSVerticalAnnotationToolbarDelegate.cs" Line="15" Column="1" />
-      <File FileName="Subclassing/KSAnnotationToolbar.cs" Line="33" Column="4" />
-      <File FileName="KSStapleMenu/KSStapleMenuItem.cs" Line="49" Column="3" />
-      <File FileName="KSStapleMenu/KSMenuItemHostView.cs" Line="5" Column="34" />
-      <File FileName="KSStapleMenu/KSStapleMenu.cs" Line="10" Column="34" />
-      <File FileName="Info.plist" />
-    </Files>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget" />
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -24,25 +8,25 @@
           <Node name="PSPDFKit-Demo-Xamarin.iOS" expanded="True">
             <Node name="References" expanded="True" />
             <Node name="KSStapleMenu" expanded="True" />
-            <Node name="ResourceData" expanded="True">
-              <Node name="VerticalToolbar" selected="True" />
+            <Node name="ResourceData" expanded="True" />
+            <Node name="Subclassing" expanded="True">
+              <Node name="AnnotationTypes" expanded="True">
+                <Node name="KSNoteAnnotation.cs" selected="True" />
+              </Node>
             </Node>
-            <Node name="Subclassing" expanded="True" />
           </Node>
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State>
           <Value>items[7]</Value>
-          <Value>(IKSAnnotation)((KSNoteAnnotation)annotation)</Value>
+          <Value>this.AnnotationButtonItem.AnnotationToolbar.Window</Value>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/rene/Documents/Develop/PSPDFKit/KS_PSPDFKit-Demo-Xamarin.iOS/Subclassing/AnnotationTypes/KSNoteAnnotationController.cs" line="18" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
