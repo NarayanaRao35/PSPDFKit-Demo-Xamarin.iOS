@@ -32,12 +32,13 @@ namespace PSPDFKitDemoXamarin.iOS
 			{
 				new Section ("Full example apps", "Can be used as a template for your own apps.")
 				{
-					// Demonstrates always visible vertical toolbar.
+					// PDF playground.
 					new StringElement ("PSPDFViewController playground", () =>
 					{
 						var doc = new PSPDFDocument(hackerMagURL);
 						var controller = new KSKioskViewController(doc);
-						controller.StatusBarStyleSetting = PSPDFStatusBarStyleSetting.Default;
+
+												controller.StatusBarStyleSetting = PSPDFStatusBarStyleSetting.Default;
 						this.NavigationController.PushViewController(controller, true);
 					}),
 				},
@@ -171,6 +172,7 @@ namespace PSPDFKitDemoXamarin.iOS
 						classDic.LowlevelSetObject( new Class(typeof(KSFileAnnotationProvider)).Handle, new Class(typeof(PSPDFFileAnnotationProvider)).Handle);
 						classDic.LowlevelSetObject( new Class(typeof(KSInkAnnotation)).Handle, new Class(typeof(PSPDFInkAnnotation)).Handle);
 						classDic.LowlevelSetObject( new Class(typeof(KSNoteAnnotation)).Handle, new Class(typeof(PSPDFNoteAnnotation)).Handle);
+						classDic.LowlevelSetObject( new Class(typeof(KSHighlightAnnotation)).Handle, new Class(typeof(PSPDFHighlightAnnotation)).Handle);
 						doc.OverrideClassNames = classDic;
 
 						controller.Document = doc;
