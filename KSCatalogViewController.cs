@@ -42,6 +42,27 @@ namespace PSPDFKitDemoXamarin.iOS
 					}),
 				},
 
+				new Section("Customizing")
+				{
+					new StringElement("Combine search, TOC and bookmarks", () =>
+					{
+						var doc = new PSPDFDocument(hackerMagURL);
+						var controller = new PSPDFViewController(doc);
+						var tabBarController = new KSCombinedTabBarController(controller, doc);
+
+						var btn = new KSBarButtonItem(controller)
+						{
+							Title = "Show!",
+							Style = UIBarButtonItemStyle.Bordered
+						};
+						btn.Clicked += (object sender, EventArgs e) => controller.PresentViewControllerModalOrPopover(tabBarController, true, false, true, btn, null);
+
+						controller.RightBarButtonItems = new PSPDFBarButtonItem[] { btn };
+
+						this.NavigationController.PushViewController(controller, true);
+					})
+				},
+
 				new Section ("Subclassing")
 				{
 					// Subclassing PSPDFAnnotationToolbar
