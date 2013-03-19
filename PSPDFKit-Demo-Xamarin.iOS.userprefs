@@ -1,29 +1,26 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPad.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Subclassing/KSVerticalAnnotationToolbar.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="AppDelegate.cs">
     <Files>
       <File FileName="AppDelegate.cs" Line="1" Column="1" />
       <File FileName="Main.cs" Line="1" Column="1" />
       <File FileName="README.md" Line="1" Column="1" />
       <File FileName="LICENSE.md" Line="1" Column="1" />
-      <File FileName="KSCatalogViewController.cs" Line="37" Column="7" />
-      <File FileName="Subclassing/KSVerticalAnnotationToolbar.cs" Line="195" Column="47" />
-      <File FileName="Subclassing/KSExampleAnnotationViewController.cs" Line="16" Column="24" />
+      <File FileName="KSCatalogViewController.cs" Line="1" Column="1" />
+      <File FileName="Subclassing/KSExampleAnnotationViewController.cs" Line="1" Column="1" />
       <File FileName="Subclassing/KSNoDocumentPDFViewController.cs" Line="1" Column="1" />
       <File FileName="Subclassing/KSBookmarkParser.cs" Line="1" Column="1" />
       <File FileName="Subclassing/KSCustomAnnotationProvider.cs" Line="1" Column="1" />
       <File FileName="Kiosk/KSKioskViewController.cs" Line="1" Column="1" />
       <File FileName="Subclassing/KSFileAnnotationProvider.cs" Line="1" Column="1" />
-      <File FileName="Subclassing/KSAnnotationToolbar.cs" Line="25" Column="14" />
+      <File FileName="Subclassing/KSAnnotationToolbar.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="PSPDFKit-Demo-Xamarin.iOS" expanded="True">
-            <Node name="References" expanded="True" />
-            <Node name="Subclassing" expanded="True">
-              <Node name="KSVerticalAnnotationToolbar.cs" selected="True" />
-            </Node>
+            <Node name="References" expanded="True" selected="True" />
+            <Node name="Subclassing" expanded="True" />
           </Node>
         </State>
       </Pad>

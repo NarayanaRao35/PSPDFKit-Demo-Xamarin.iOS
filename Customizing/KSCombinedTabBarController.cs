@@ -9,8 +9,17 @@ namespace PSPDFKitDemoXamarin.iOS
 		public KSCombinedTabBarController (PSPDFViewController controller, PSPDFDocument document) : base ()
 		{
 			var tocController = new PSPDFOutlineViewController (document, controller.Handle);
+			tocController.Title = "TOC";
+
 			var searchController = new PSPDFSearchViewController (document, controller);
-			this.SetViewControllers (new UIViewController[] { tocController, searchController }, false);
+			searchController.Title = "Search";
+
+			var bookmarksController = new PSPDFBookmarkViewController (document);
+			// PSPDFViewController implements PSPDFOutlineViewControllerDelegate as a protocol.
+			bookmarksController.WeakDelegate = controller;
+			bookmarksController.Title = "Bookmarks";
+
+			this.SetViewControllers (new UIViewController[] { tocController, searchController, bookmarksController }, false);
 		}
 	}
 }

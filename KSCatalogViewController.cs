@@ -38,7 +38,7 @@ namespace PSPDFKitDemoXamarin.iOS
 						var doc = new PSPDFDocument(hackerMagURL);
 						var controller = new KSKioskViewController(doc);
 
-												controller.StatusBarStyleSetting = PSPDFStatusBarStyleSetting.Default;
+						controller.StatusBarStyleSetting = PSPDFStatusBarStyleSetting.Default;
 						this.NavigationController.PushViewController(controller, true);
 					}),
 				},
@@ -51,14 +51,14 @@ namespace PSPDFKitDemoXamarin.iOS
 						var controller = new PSPDFViewController(doc);
 						var tabBarController = new KSCombinedTabBarController(controller, doc);
 
-						var btn = new KSBarButtonItem(controller)
+						var tabBarBtn = new KSBarButtonItem(controller)
 						{
 							Title = "Show!",
 							Style = UIBarButtonItemStyle.Bordered
 						};
-						btn.Clicked += (object sender, EventArgs e) => controller.PresentViewControllerModalOrPopover(tabBarController, true, false, true, btn, null);
+						tabBarBtn.Clicked += (object sender, EventArgs e) => controller.PresentViewControllerModalOrPopover(tabBarController, true, false, true, tabBarBtn, null);
 
-						controller.RightBarButtonItems = new PSPDFBarButtonItem[] { btn };
+						controller.RightBarButtonItems = new PSPDFBarButtonItem[] { controller.BookmarkButtonItem, tabBarBtn };
 
 						this.NavigationController.PushViewController(controller, true);
 					})

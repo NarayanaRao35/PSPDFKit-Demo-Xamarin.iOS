@@ -1,4 +1,9 @@
 /bin
+
 /obj
+
 .DS_Store
+
 *.userprefs
+
+PSPDFKit-Demo-Xamarin.iOS.userprefs
